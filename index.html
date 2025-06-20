@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Бимбо Телеф</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="wrapper">
+    <p class="hint">click the phone to start</p>
+
+    <!-- Картинка телефона -->
+    <img id="phone" src="assets/closed-phone.png" alt="Закрытый телефон" />
+
+    <!-- Картинка экрана -->
+    <img id="screen-overlay" src="assets/phone-screen.png" alt="Экран телефона" />
+
+    <!-- Экран и ввод -->
+    <div id="screen">
+      <p id="screen-text"></p>
+      <input
+        type="text"
+        id="codeInput"
+        placeholder="Enter code"
+        style="display: none;"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Всплывающее окно -->
+    <div id="win-message">
+      <div class="win-box">
+        <p id="win-text">...</p>
+        <div class="win-buttons">
+          <button id="win-ok">OK</button>
+          <button id="win-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Звуки -->
+  <audio id="openSound" src="assets/open.mp3" preload="auto"></audio>
+  <audio id="replySound" src="assets/replySound.mp3" preload="auto"></audio>
+
+  <!-- Скрипт -->
+  <script src="js/script.js"></script>
+</body>
+</html>
