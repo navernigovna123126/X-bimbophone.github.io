@@ -1,0 +1,173 @@
+/* Общий стиль */
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  font-family: 'Courier New', monospace;
+  user-select: none;
+  overflow: hidden;
+}
+
+#wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}
+
+/* Надпись "Click to start" */
+.hint {
+  font-size: 20px;
+  color: #ff69b4;
+  margin-top: 30px;
+  font-family: 'PixelFont', monospace;
+  text-shadow: 1px 1px white;
+  user-select: none;
+}
+
+/* Телефон */
+#phone {
+  width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* Экран — накладывается сверху */
+#screen-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+}
+
+/* Текст внутри экрана */
+#screen-text {
+  position: absolute;
+  top: 30%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #FF00BF;
+  z-index: 4;
+  font-family: 'PixelFont', monospace;
+  animation: blink 1s step-start infinite;
+  user-select: none;
+}
+
+/* Поле ввода */
+#codeInput {
+  position: absolute;
+  top: 39%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  padding: 4px 6px;
+  border: 1px solid #F8EDFB;
+  border-radius: 4px;
+  z-index: 4;
+  width: 120px;
+  font-family: 'PixelFont', monospace;
+  text-align: center;
+  color: #333;
+  background: #FF00BF;
+}
+
+/* Цвет текста placeholder — Enter code */
+#codeInput::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+/* Розовый плейсхолдер */
+#codeInput::placeholder {
+  color: pink;
+  opacity: 1;
+}
+
+/* Всплывающее окно */
+#win-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  background: #f0f0f0;
+  border: 2px solid #888;
+  width: 250px;
+  padding: 15px;
+  z-index: 10;
+  display: none;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.2s forwards;
+  font-family: 'Courier New', monospace;
+  user-select: none;
+}
+
+#win-message.active {
+  display: block;
+}
+
+/* Окно внутри */
+.win-box {
+  text-align: center;
+}
+
+/* Текст в окне */
+#win-text {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: black;
+  user-select: none;
+}
+
+/* Кнопки */
+.win-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#win-ok,
+#win-cancel {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid #aaa;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+  user-select: none;
+}
+
+#win-ok:hover,
+#win-cancel:hover {
+  background: #ddd;
+}
+
+/* Мигающая надпись */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Анимация всплытия окна */
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
