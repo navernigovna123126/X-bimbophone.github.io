@@ -1,4 +1,5 @@
 const phone = document.getElementById('phone');
+const logoVideo = document.getElementById('logoVideo');
 const screenOverlay = document.getElementById('screen-overlay');
 const input = document.getElementById('codeInput');
 const screenText = document.getElementById('screen-text');
@@ -13,7 +14,6 @@ let isOpen = false;
 
 phone.addEventListener('click', () => {
   if (isOpen) return;
-
   isOpen = true;
 
   openSound.play();
@@ -22,11 +22,27 @@ phone.addEventListener('click', () => {
 
   setTimeout(() => {
     phone.src = 'assets/open-phone2.png';
-    screenOverlay.style.display = 'block';
-    // Здесь изменено на innerHTML и добавлен перенос строки <br>
-    screenText.innerHTML = 'Send a text<br>to X';
-    input.style.display = 'block';
-    input.focus();
+
+    // Показываем видео с логотипом
+    logoVideo.style.display = 'block';
+    setTimeout(() => {
+      logoVideo.classList.add('visible');
+      logoVideo.play();
+    }, 50);
+
+    logoVideo.onended = () => {
+      // Скрываем видео плавно
+      logoVideo.classList.remove('visible');
+      setTimeout(() => {
+        logoVideo.style.display = 'none';
+
+        // Показываем экран с текстом и вводом
+        screenOverlay.style.display = 'block';
+        screenText.innerHTML = 'Send a text<br>to X';
+        input.style.display = 'block';
+        input.focus();
+      }, 500); // Время совпадает с CSS transition
+    };
   }, 400);
 });
 
@@ -56,13 +72,26 @@ const responses = {
   "соня": "мимик chapter one true",
   "федя": "nah",
   "хэли": "uh-uh",
-  "фурри": "кровные братья",
+  "фурри": "мои кровные братья",
   "ена": "я захотел воппер из-за твоей эры",
   "катсуки": "cat suka ха хах ха хах хаха ха ...............",
-  
-  
-  
-  
+  "кэсс": "ждем конкурс оформлений СУКА",
+  "рейн": "крутой админ целую",
+  "риша": "милана на троне",
+  "роблокс": "эйбобас",
+  "пипидастр": "наверни говна",
+  "майто": "верни хелп",
+  "су": "ка ладно ты крутая",
+  "така": "говно залупа пенис хер давалка хуй блядина рукаблуд ссанина очкоблядун влагалище сука вагина ебланище",
+  "сайа": "милый профиль ^_^",
+  "наташа": "они с детства в сизо",
+  "ханни": "не знаю но ты крутая",
+  "мио": "стейси СОСАЛКА",
+  "твайла": "черт ты крута",
+  "чона": "да я ангел но крылья в ремонте",
+  "вейд": "очень красивое портфолио",
+  "талли": "best help forever !",
+  "твикс": "недавно там сижу, комфортные ребята",
 };
 
 input.addEventListener('keydown', (e) => {
