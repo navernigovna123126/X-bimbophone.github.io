@@ -1,13 +1,15 @@
-/* Общий стиль */
+/* Общие стили для всей страницы */
 body {
   margin: 0;
   padding: 0;
-  background: white;
+  background: linear-gradient(135deg, #F5C3FC, #D1B8E5); /* розово-лавандовый градиент */
+  background-attachment: fixed;
   font-family: 'Courier New', monospace;
   user-select: none;
   overflow: hidden;
 }
 
+/* Контейнер */
 #wrapper {
   position: relative;
   width: 100vw;
@@ -17,8 +19,8 @@ body {
 
 /* Надпись "Click to start" */
 .hint {
-  font-size: 20px;
-  color: #ff69b4;
+  font-size: 16px;
+  color: #F4E7FF;
   margin-top: 30px;
   font-family: 'PixelFont', monospace;
   text-shadow: 1px 1px white;
@@ -27,39 +29,63 @@ body {
 
 /* Телефон */
 #phone {
-  width: 700px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  width: 700px;
+  max-width: 90vw;
+  z-index: 3; /* самый верх */
   cursor: pointer;
 }
 
-/* Экран — накладывается сверху */
+#logoVideo {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  top: 32%; /* или по вкусу */
+  left: 50.5%;
+  transform: translate(-50%, -50%);
+  width: 180px; /* размер подправь */
+  max-height: 35%;
+  height: auto;
+  border-radius: 20px;
+  z-index: 2; /* ниже телефона, выше экрана */
+  pointer-events: none;
+}
+
+#logoVideo.visible {
+  display: block;
+  opacity: 1;
+}
+
 #screen-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 700px;
+  max-width: 90vw;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 1; /* ниже видео и телефона */
   display: none;
   pointer-events: none;
+  border-radius: 20px;
 }
 
-/* Текст внутри экрана */
+/* Текст на экране */
 #screen-text {
   position: absolute;
   top: 30%;
   left: 51%;
   transform: translate(-50%, -50%);
   font-size: 20px;
-  color: #FF00BF;
+  color: #F8EDFB;
   z-index: 4;
   font-family: 'PixelFont', monospace;
   animation: blink 1s step-start infinite;
   user-select: none;
+  text-align: center;
+  white-space: normal; /* для переноса строк */
 }
 
 /* Поле ввода */
@@ -78,15 +104,10 @@ body {
   text-align: center;
   color: #333;
   background: #FF00BF;
+  user-select: text;
 }
 
-/* Цвет текста placeholder — Enter code */
-#codeInput::placeholder {
-  color: white;
-  opacity: 1;
-}
-
-/* Розовый плейсхолдер */
+/* Текст placeholder внутри input */
 #codeInput::placeholder {
   color: pink;
   opacity: 1;
@@ -97,34 +118,45 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.5);
-  background: #f0f0f0;
-  border: 2px solid #888;
-  width: 250px;
-  padding: 15px;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 140px;
+  background: #FFACF1; /* изменён цвет фона на нужный */
   z-index: 10;
   display: none;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  animation: popIn 0.2s forwards;
-  font-family: 'Courier New', monospace;
+  font-family: 'PixelFont', monospace;
   user-select: none;
+  padding: 40px 20px 20px 20px; /* паддинги */
+  box-sizing: border-box; /* чтобы padding учитывался */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  color: black; /* цвет текста */
 }
 
+
+/* Активация окна */
 #win-message.active {
   display: block;
 }
 
-/* Окно внутри */
+/* Внутренний контейнер делаем flex, чтобы текст и кнопки выравнивались */
 .win-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
   text-align: center;
 }
 
-/* Текст в окне */
+/* Текст ответа */
 #win-text {
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 12px;
-  color: black;
   user-select: none;
+  flex-grow: 1; /* чтобы текст занимал пространство и кнопки были снизу */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Кнопки */
@@ -132,6 +164,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 #win-ok,
@@ -150,14 +183,14 @@ body {
   background: #ddd;
 }
 
-/* Мигающая надпись */
+/* Мигающий текст */
 @keyframes blink {
   50% {
     opacity: 0;
   }
 }
 
-/* Анимация всплытия окна */
+/* Анимация появления окна */
 @keyframes popIn {
   0% {
     transform: translate(-50%, -50%) scale(0.4);
@@ -169,5 +202,27 @@ body {
   }
   100% {
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* --- Адаптивные стили --- */
+@media (max-width: 768px) {
+  #phone {
+    width: 90vw; /* телефон масштабируется под ширину экрана */
+  }
+  #screen-overlay {
+    width: 90vw;
+  }
+  #logoVideo {
+    width: 90vw;
+    max-width: none;
+    max-height: 80vh;
+  }
+  #screen-text {
+    font-size: 16px;
+  }
+  #codeInput {
+    font-size: 14px;
+    width: 100px;
   }
 }
